@@ -1,1 +1,1 @@
-SQLALCHEMY_DATABASE_URI="mysql+pymysql://root:@localhost/faceattendence"
+SQLALCHEMY_DATABASE_URI="mysql+pymysql://root:Bishwajit_123@localhost/faceattendence"
