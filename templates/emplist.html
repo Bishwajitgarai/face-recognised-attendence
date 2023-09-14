@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+        }
+        .delete-btn {
+            background: red;
+            color: rgb(7, 7, 7);
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 11px;
+        }
+        .edit-btn {
+            background: green;
+            color: rgb(237, 234, 234);
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 11px;
+        }
+        table {
+            margin: 0px;
+            border-collapse: collapse;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+        }
+        th,
+        td {
+            text-align: center;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+        tr:hover {
+            background-color: #76D7C4;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .panel {
+
+            width: 1447px;
+            height: auto;
+            border-radius: 45px;
+            margin: 2% auto;
+            box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+            padding: 2%;
+        }
+        input {
+            width: 100%;
+        }
+        .form-group {
+            margin: auto 34%;
+            padding: 2px;
+            font-weight: 600;
+        }
+        input[type=text] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #555;
+        }
+        #add-employee-btn {
+            background-color: #4CAF50;
+            right: 10%;
+            padding: 11px 19px;
+            width: 458px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 10px;
+            margin-left: 493px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        #add-employee-btn:hover {
+            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+        #star {
+            color: red;
+        }
+        .download-btn {
+		background: #ffffff;
+		border: solid 1px #e6e6e6;
+		border-radius: 2px;
+		display: inline-block;
+		height: 100px;
+		line-height: 80px;
+		margin: 5px;
+		position: relative;
+		text-align: center;
+		vertical-align: middle;
+		width: 100px;
+}
+
+.download-btn span {
+		background: #f2594b;
+		border-radius: 4px;
+		color: #ffffff;
+		display: inline-block;
+		font-size: 11px;
+		font-weight: 700;
+		line-height: normal;
+		padding: 5px 10px;
+		position: relative;
+		text-transform: uppercase;
+		z-index: 1;
+}
+.download-btn span:last-child {
+		margin-left: -20px;
+}
+.download-btn:before,
+.download-btn:after {
+		background: #ffffff;
+		border: solid 3px #9fb4cc;
+		border-radius: 4px;
+		content: '';
+		display: block;
+		height: 35px;
+		left: 50%;
+		margin: -17px 0 0 -12px;
+		position: absolute;
+		top: 50%;
+		
+		width: 25px;
+}
+
+.download-btn:hover:before,
+.download-btn:hover:after {
+		background: #e2e8f0;
+}
+.download-btn:before {
+		margin: -23px 0 0 -5px;
+}
+
+.download-btn:hover {
+		background: #e2e8f0;
+		border-color: #9fb4cc;
+}
+
+.download-btn:active {
+		background: #dae0e8;
+		box-shadow: inset 0 2px 2px rgba(0, 0, 0, .25);
+}
+
+.download-btn span:first-child {
+		display: none;
+}
+
+.download-btn:hover span:first-child {
+		display: inline-block;
+}
+
+.download-btn:hover span:last-child {
+		display: none;
+}
+
+.button-21 {
+        background: black;
+        cursor: pointer;
+        font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+        font-size: 20px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        margin-top: -20px;
+        border: none;
+        float: right;
+        padding: 17px 82px;
+        text-align: center;
+        text-decoration: none;
+        
+      }
+      .button-21 a{
+        color: red;
+        text-decoration: none;
+      }
+      .button-20 {
+        background: black;
+        color: #4CAF50;
+        cursor: pointer;
+        font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+        font-size: 20px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        margin-top: -30px;
+        border: none;
+        padding: 17px 82px;
+        text-align: center;
+        text-decoration: none;
+        
+      }
+      .button-20 a{
+        color: rgb(11 226 79 / 85%);
+        text-decoration: none;
+      }
+    </style>
+    <!-- Employee Tracker -->
+    <div class="container">
+        <!-- Jumbotron -->
+        <div class="jumbotron" style="background-color: black; color: white">
+            <h1 class="text-center" align="center">Employee Attendance Management</h1>
+            <h3 class="text-center"align="center" >A Comprehensive Directory of Employee Hours</h3>
+            <button type="button" class="button-20 btn-primary"><a href="{{ url_for('home') }}">Home</a></button>
+            <button class="button-21"><a href="{{ url_for('logout') }}">Log out</a></button>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+
+        {% for message in messages %}
+        <p class="alert">{{ message }}
+        <p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <!-- Add Employee  -->
+        <div class="panel panel-primary">
+
+            <div class="panel-body">
+                <div class="panel-heading">
+                    <h1 class="panel-title " align="center"> Add Employee</h1>
+                </div>
+
+                <!-- Entry Form -->
+                <form action="{{ url_for('addemp') }}" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="employee-name-input">First Name</label><strong id="star"> *</strong> </br>
+                        <input class="form-control" id="employee-name-input" placeholder="Enter First Name" name="fname"
+                            type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="employee-name-input">Last Name</label><strong id="star"> *</strong> </br>
+                        <input class="form-control" id="employee-name-input" placeholder="Enter Last Name" name="lname"
+                            type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role-input">Role</label><strong id="star"> *</strong> </br>
+                        <input class="form-control" placeholder="Enter Role" id="role-input" type="text" name="role">
+                    </div>
+                    <div class="form-group">
+                        <label for="role-input">Image</label><strong id="star"> *</strong> </br></br>
+                        <input type="file" id="img" name="img" accept="image/*" required>
+                    </div> <br>
+                    <button class="btn btn-primary" id="add-employee-btn" type="submit">Submit</button>
+
+            </div>
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            <!-- Current Employees-->
+            <div class="panel panel-primary">
+
+                <div class="panel-body">
+                    <h3 class="panel-title">
+                        <h1>Current Employees</h1>
+                    </h3>
+                    <table class="table table-hover" id='employee-table' border="1" width="100%" cellspacing="0"
+                        cellpadding="10px">
+                        <thead>
+                            <tr>
+                                <th align="center">First Name</th>
+                                <th align="center">Last Name</th>
+                                <th align="center">Role</th>
+                                
+                                <th align="center">Update</th>
+                                <th align="center">Delete</th>
+                                <th align="center">Excel Download</th>
+                            </tr>
+                        </thead>
+                        {% if empllist %}
+                        {% for i in empllist %}
+                        <tbody>
+                            <tr>
+                                <td>{{ i[1] }}</td>
+                                <td>{{ i[2] }} </td>
+                                <td>{{ i[5] }} </td>
+                                
+                                <td><a href="{{ url_for('editemp',id=i[0]) }}" class='edit-btn'>Update</a></td>
+                                <td><a href="{{ url_for('deleteemp',id=i[0]) }}" class='delete-btn'>Delete</a></td>
+                                <td><a href="{{ url_for('exceldownload',id=i[0]) }}"  class='download-btn'download><span>Download</span><span>XSL</span></a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                        {% endfor %}
+
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <!-- added content -->
+    <div class="row">
+        <div class="col-lg-12" id="images">
+        </div>
+    </div>
+
+    </div>
+
+
+    <script>
+
+    </script>
+</body>
+
+</html>

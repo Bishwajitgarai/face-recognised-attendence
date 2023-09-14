@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+opencv-python = "*"
+cmake = "*"
+face-recognition = "*"
+sqlalchemy = "*"
+pymysql = "*"
+flask-sqlalchemy = "*"
+pandas = "*"
+openpyxl = "*"
+xlsxwriter = "*"
+flask-login = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

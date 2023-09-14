@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Face App</title>
+  </head>
+  <body>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-image: linear-gradient(-225deg, #e3fdf5 0%, #ffe6fa 100%);
+        background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+
+        font-family: "Vibur", cursive;
+        /*   the main font */
+        font-family: "Abel", sans-serif;
+        opacity: 0.95;
+        /* background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%); */
+      }
+
+      /* CSS */
+
+      .button-24 {
+        background: #ff4742;
+        border: 1px solid #ff4742;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 17px 14px;
+        text-align: center;
+        text-decoration: none;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+      }
+
+      .button-24:hover,
+      .button-24:active {
+        background-color: initial;
+        background-position: 0 0;
+        color: #ff4742;
+        text-decoration: none;
+      }
+
+      .button-24:active {
+        opacity: 0.5;
+      }
+
+      .button-20 {
+        background: #326cc2;
+        border: 1px solid #ff4742;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 17px 14px;
+        text-align: center;
+        text-decoration: none;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+      }
+
+      .button-20:hover,
+      .button-20:active {
+        background-color: initial;
+        background-position: 0 0;
+        color: #326cc2;
+        text-decoration: none;
+      }
+
+      .button-20:active {
+        opacity: 0.5;
+      }
+
+      .button-21 {
+        background: red;
+        border: 1px solid #ff4742;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 17px 14px;
+        text-align: center;
+        text-decoration: none;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+      }
+
+      .button-21:hover,
+      .button-21:active {
+        background-color: initial;
+        background-position: 0 0;
+        color: red;
+        text-decoration: none;
+      }
+
+      .button-21:active {
+        opacity: 0.5;
+      }
+
+      .button-22 {
+        background: green;
+        border: 1px solid #ff4742;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 17px 14px;
+        text-align: center;
+        text-decoration: none;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+      }
+
+      .button-22:hover,
+      .button-22:active {
+        background-color: initial;
+        background-position: 0 0;
+        color: green;
+        text-decoration: none;
+      }
+
+      .button-22:active {
+        opacity: 0.5;
+      }
+      a {
+        margin-top: 120px;
+        right: 70px;
+        margin-right: 58px;
+        width: 400px;
+      }
+     
+      .jayanta-group{
+        padding: 84px 142px;
+      
+      }
+      #logout{
+        float: right;
+        margin-top: -10px;
+        font-size: 25px;
+        text-decoration: none;
+        background-color: black;
+      }
+     .logout  a {
+        text-decoration: none;
+       color: red;
+      }
+      
+    </style>
+
+    <div class="jumbotron" style="background-color: black; color: white">
+      <h1 class="text-center">Employee Attendance Management</h1>
+      <h3 class="text-center">A Comprehensive Directory of Employee Hours</h3>
+      
+      <div class="logout" id="logout">
+       <a href="{{ url_for('logout') }}" class="log-out"
+          ><span class="glyphicon glyphicon-log-out"></span> Logout</a
+          >
+        
+      </div>
+      
+    </div>
+    <div class="jayanta">
+      <div class="jayanta-group">
+        <a href="{{ url_for('emplist') }}" class="button-20">Manage Employee</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{{ url_for('entry') }}" class="button-22"
+          >Click Here Attendence</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{{ url_for('exit') }}" class="button-21"
+          >Click Here Exit Attendence</a
+        >
+      </div>
+    </div>
+  </body>
+</html>
