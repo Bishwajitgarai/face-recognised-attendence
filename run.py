@@ -65,11 +65,42 @@ class User(db.Model,UserMixin):
     password=db.Column(db.String(100))
     id=db.Column(db.Integer,autoincrement=True,primary_key=True)
 
+class Attendence(db.Model):
+    __tablename__='attendence'
+    entrytime=db.Column(db.DateTime)
+    date=db.Column(db.DateTime)
+    exittime=db.Column(db.DateTime)
+    id=db.Column(db.Integer)
+    pid=db.Column(db.Integer,autoincrement=True,primary_key=True)
+
+class Employee(db.Model):
+    __tablename__='employee'
+    fname=db.Column(db.String(100))
+    lname=db.Column(db.String(100))
+    image_name=db.Column(db.String(500))
+    status=db.Column(db.Integer)
+    role=db.Column(db.String(100))
+    org_img=db.Column(db.String(200))
+    id=db.Column(db.Integer)
+    pid=db.Column(db.Integer,autoincrement=True,primary_key=True)
+
+# Create the database tables
+
 @app.route('/', methods =['GET', 'POST'])
 def admin():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     return render_template("adminlogin.html")
+@app.route('/adduser', methods =['GET', 'POST'])
+def adduser():
+    us=User.query.filter(User.username=="admin").first()
+    if not us:
+        payload={"username":'admin', "password":'1234'}
+        new_user = User(**payload)
+        db.session.add(new_user)
+        db.session.commit()
+        db.session.close()
+    return redirect(url_for('home'))
 @login_required
 @app.route('/home', methods =['GET', 'POST'])
 def home():
@@ -421,6 +452,9 @@ def exitattendence():
     
 if __name__ == "__main__":
     # app.run()
-    app.run(debug=True)
+    if not os.path.isfile(os.path.join(os.getcwd(),"faceattendence.db")):
+        with app.app_context():
+            db.create_all()
+    
 
-csv.hh
+    app.run(debug=True)
