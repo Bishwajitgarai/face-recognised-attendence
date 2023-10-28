@@ -7,7 +7,6 @@ from flask import render_template,redirect,url_for,flash,request,send_file, make
 from flask_login import current_user,login_required,logout_user,login_user,LoginManager,UserMixin
 from werkzeug.utils import secure_filename
 import os
-import cv2
 import numpy as np
 import pandas as pd
 import face_recognition
@@ -16,6 +15,8 @@ import csv
 from datetime import datetime
 import io
 import uuid
+import cv2
+
 camera = None
 is_capturing = False
 face_cascade=cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
@@ -464,10 +465,9 @@ def exitattendence():
     return Response(exit_capture_attendance(), mimetype='multipart/x-mixed-replace; boundary=frame')
     
 if __name__ == "__main__":
-    # app.run()
     if not os.path.isfile(os.path.join(os.getcwd(),"faceattendence.db")):
         with app.app_context():
             db.create_all()
     
-
-    app.run(debug=True)
+    app.run()
+    # app.run(debug=True)
