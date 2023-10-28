@@ -67,22 +67,22 @@ class User(db.Model,UserMixin):
 
 class Attendence(db.Model):
     __tablename__='attendence'
+    pid=db.Column(db.Integer,autoincrement=True,primary_key=True)
     entrytime=db.Column(db.DateTime)
     date=db.Column(db.DateTime)
     exittime=db.Column(db.DateTime)
     id=db.Column(db.Integer)
-    pid=db.Column(db.Integer,autoincrement=True,primary_key=True)
 
 class Employee(db.Model):
     __tablename__='employee'
+    id=db.Column(db.Integer,autoincrement=True,primary_key=True)
     fname=db.Column(db.String(100))
     lname=db.Column(db.String(100))
     image_name=db.Column(db.String(500))
-    status=db.Column(db.Integer)
+    status=db.Column(db.Integer,default=1)
     role=db.Column(db.String(100))
     org_img=db.Column(db.String(200))
-    id=db.Column(db.Integer)
-    pid=db.Column(db.Integer,autoincrement=True,primary_key=True)
+    
 
 # Create the database tables
 
@@ -167,22 +167,31 @@ def exceldownload():
 @login_required
 @app.route('/deleteemp/<int:id>', methods =['GET', 'POST'])
 def deleteemp(id):
-    qry=text(f""" update  employee set  status=0 where id={id} """)
-    conn.execute(qry)
-    qry=text(f""" Select * from  employee  where id={id}""")
-    emp=conn.execute(qry).fetchone()
-    conn.commit()
-    conn.close()
-    flash(f'User Deleted for {emp[1]} {emp[2]}')
+    emp=db.session.query(Employee).get(id)
+    if emp:
+        emp.status=0
+    # qry=text(f""" update  employee set  status=0 where id={id} """)
+    # conn.execute(qry)
+    # qry=text(f""" Select * from  employee  where id={id}""")
+    # emp=conn.execute(qry).fetchone()
+    # conn.commit()
+    # conn.close()
+    flash(f'User Deleted for {emp.fname} {emp.lname}')
+    db.session.commit()
+    db.session.close()
     return redirect(url_for("emplist"))
 
 @login_required
 @app.route('/emplist', methods =['GET', 'POST'])
 def emplist():
-    qry=text(f""" Select * from  employee  where status=1 """)
-    empllist=conn.execute(qry).fetchall()
-    conn.commit()
-    conn.close()
+    empllist=db.session.query(Employee).filter(Employee.status==1).all()
+    # empllist=[dict(emp.__dict__) for emp in empllist]
+    # # qry=text(f""" Select * from  employee  where status=1 """)
+    # # empllist=conn.execute(qry).fetchall()
+    # # print(empllist)
+    # # conn.commit()
+    # # conn.close()
+    # print(empllist)
     return render_template("emplist.html",empllist=empllist)
 
 @login_required
@@ -204,24 +213,30 @@ def addemp():
             return redirect(request.url)
         elif file :
             filename=str(uuid.uuid4())+"@@@@"+file.filename
-            filename = secure_filename(filename)
+            img_filename = secure_filename(filename)
+            full_img_path=os.path.join(app.config['UPLOAD_FOLDER'], img_filename)
             org_img=file.filename
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            image=filename
-            qry=text(f""" insert into employee (org_img,fname,lname,image_name,role) values ('{org_img}','{fname}','{lname}','{image}','{role}')  """)
-            conn.execute(qry)
-            conn.commit()
-            conn.close()
+            file.save(full_img_path)
+            payload={"org_img":org_img,"fname":fname,"lname":lname,"image_name":img_filename,"role":role,"status":1}
+            emp=Employee(**payload)
+            db.session.add(emp)
+            db.session.commit()
+            db.session.close()
+            # qry=text(f""" insert into employee (org_img,fname,lname,image_name,role,status) values ('{org_img}','{fname}','{lname}','{image}','{role}','1')  """)
+            # conn.execute(qry)
+            # conn.commit()
+            # conn.close()
             flash(f'User Added for {fname} {lname}')
             return redirect(url_for("emplist"))
     return redirect(url_for("emplist"))
 @login_required
 @app.route('/editemp/<int:id>', methods =['GET', 'POST'])
 def editemp(id):
-    qry=text(f""" Select * from  employee  where status=1 and id='{id}' """)
-    emp=conn.execute(qry).fetchone()
-    conn.commit()
-    conn.close()
+    emp=Employee.query.get(id)
+    # qry=text(f""" Select * from  employee  where status=1 and id='{id}' """)
+    # emp=conn.execute(qry).fetchone()
+    # conn.commit()
+    # conn.close()
     
     if request.method == 'POST':
         file = request.files['img']
@@ -229,23 +244,19 @@ def editemp(id):
         fname=data.get("fname")
         lname=data.get("lname")
         role=data.get("role")
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        elif file :
-            filename=str(uuid.uuid4())+"@@@@"+file.filename
-            filename = secure_filename(filename)
-            org_img=file.filename
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            image=filename
-            # qry=text(f""" delete from  employee where id={id} """)
-            # conn.execute(qry)
-            qry=text(f""" update employee set org_img='{org_img}', fname='{fname}',lname='{lname}',image_name='{image}',role='{role}' where id='{id}'  """)
-            conn.execute(qry)
-            conn.commit()
-            conn.close()
-            flash(f'User Updated for {fname} {lname}')
-            return redirect(url_for("emplist"))
+    
+        filename=str(uuid.uuid4())+"@@@@"+file.filename
+        img_filename = secure_filename(filename)
+        full_img_path=os.path.join(app.config['UPLOAD_FOLDER'], img_filename)
+        org_img=file.filename
+        file.save(full_img_path)
+        payload={"id":id,"org_img":org_img,"fname":fname,"lname":lname,"image_name":img_filename,"role":role,"status":1}
+        emp=Employee(**payload)
+        db.session.merge(emp)
+        db.session.commit()
+        db.session.close()
+        flash(f'User Updated for {fname} {lname}')
+        return redirect(url_for("emplist"))
         
     return render_template("editemp.html",id=id,emp=emp)
 # Initialize global variables
@@ -298,9 +309,11 @@ def entry_capture_attendance():
             for face_encoding in face_encodings:
                 mathes = face_recognition.compare_faces(know_face_encodings, face_encoding)
                 face_distance  = face_recognition.face_distance(know_face_encodings,face_encoding)
-                best_match_index = np.argmin(face_distance)
-                if(mathes[best_match_index]):
-                    name= known_face_name[best_match_index]
+                name="name"
+                if face_distance.__len__()>0:
+                    best_match_index = np.argmin(face_distance)
+                    if(mathes[best_match_index]):
+                        name= known_face_name[best_match_index]
 
         #add the text if person is present
                 if name in known_face_name:

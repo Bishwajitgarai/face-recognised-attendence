@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Employee List</title>
     <link rel="stylesheet" href="style.css">
     
 </head>
@@ -287,7 +287,7 @@
                                 <th align="center">First Name</th>
                                 <th align="center">Last Name</th>
                                 <th align="center">Role</th>
-                                
+                                <th align="center">Image</th>
                                 <th align="center">Update</th>
                                 <th align="center">Delete</th>
                                 <th align="center">Excel Download</th>
@@ -297,13 +297,13 @@
                         {% for i in empllist %}
                         <tbody>
                             <tr>
-                                <td>{{ i[1] }}</td>
-                                <td>{{ i[2] }} </td>
-                                <td>{{ i[5] }} </td>
-                                
-                                <td><a href="{{ url_for('editemp',id=i[0]) }}" class='edit-btn'>Update</a></td>
-                                <td><a href="{{ url_for('deleteemp',id=i[0]) }}" class='delete-btn'>Delete</a></td>
-                                <td><a href="{{ url_for('exceldownload',id=i[0]) }}"  class='download-btn'download><span>Download</span><span>XSL</span></a>
+                                <td>{{ i.fname }}</td>
+                                <td>{{ i.lname }} </td>
+                                <td>{{ i.role }} </td>
+                                <td><img src="{{ i.image_name }}" alt="{{ i.fname }} {{ i.lname }}" style="height: 03cm;width: 03cm;"></td>
+                                <td><a href="{{ url_for('editemp',id=i.id) }}" class='edit-btn'>Update</a></td>
+                                <td><a href="{{ url_for('deleteemp',id=i.id) }}" class='delete-btn'>Delete</a></td>
+                                <td><a href="{{ url_for('exceldownload',id=i.id) }}"  class='download-btn'download><span>Download</span><span>XSL</span></a>
                                 </td>
                             </tr>
 
